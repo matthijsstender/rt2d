@@ -160,6 +160,8 @@ IF(MAKE_START)
 		start/button.h
 		start/myscene.cpp
 		start/myscene.h
+    start/sequence.cpp
+    start/sequence.h
 	)
 	target_link_libraries(start
 		${ALL_GRAPHICS_LIBS}

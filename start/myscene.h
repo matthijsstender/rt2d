@@ -10,8 +10,12 @@
 #define MYSCENE_H
 
 #include <rt2d/scene.h>
+#include <fstream>
+#include <sstream>
+#include <vector>
 
 #include "button.h"
+#include "sequence.h"
 
 /// @brief The MyScene class is the Scene implementation.
 class MyScene : public Scene
@@ -26,15 +30,17 @@ public:
 	/// @param deltaTime the elapsed time in seconds
 	/// @return void
 	virtual void update(float deltaTime);
+	void clearAllButtons();
+	void play();
 
 private:
-	/// @brief the rotating square in the middle of the screen
-	MyEntity* myentityr;
-	MyEntity* myentityg;
-	MyEntity* myentityb;
-	MyEntity* myentityy;
-	/// @brief a Timer to rotate the color every n seconds
+	MyEntity* buttonr;
+	MyEntity* buttong;
+	MyEntity* buttonb;
+	MyEntity* buttony;
 	Timer t;
+	Sequence*seq;
+	bool startSeq;
 };
 
 #endif /* SCENE00_H */

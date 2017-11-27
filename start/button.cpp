@@ -6,13 +6,12 @@
 
 #include "button.h"
 
-MyEntity::MyEntity() : Entity()
+MyEntity::MyEntity(RGBAColor c) : Entity()
 {
-	//this->addSprite("assets/red.tga");
-	//RGBAColor color = this->sprite()->color;
-	// color.r = 0.1f;
-	//color.a = 150;
-	//this->sprite()->color = color;
+	color = c;
+
+	this->addSprite("assets/button.tga");
+	this->sprite()->color = color;
 }
 
 MyEntity::~MyEntity()
@@ -47,4 +46,24 @@ void MyEntity::update(float deltaTime)
 	if (this->position.y+(this->sprite()->size.y/2.0f)<0.0f) {
 		this->position.y = SHEIGHT + (this->sprite()->size.y/2.0f);
 	}*/
+}
+
+void MyEntity::press(){
+
+	RGBAColor c = color;
+	c.a = 255;
+
+	this->sprite()->color = c;
+}
+
+RGBAColor MyEntity::getColor()
+{
+	return this->color;
+}
+
+void MyEntity::clear() {
+	RGBAColor c = color;
+	c.a = 127;
+
+	this->sprite()->color = c;
 }

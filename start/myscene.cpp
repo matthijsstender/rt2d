@@ -4,65 +4,72 @@
  * Copyright 2015 Your Name <you@yourhost.com>
  */
 
-#include <fstream>
-#include <sstream>
 
 #include "myscene.h"
 
 MyScene::MyScene() : Scene()
 {
-	// start the timer.
-	t.start();
-	float W = SWIDTH/4;
-	float H = SHEIGHT/4;
+	float W = SWIDTH/2;
+	float H = SHEIGHT/2;
+	std::vector<MyEntity*> buttons = std::vector<MyEntity*>();
+	startSeq = true;
 
 	// create a single instance of MyEntity in the middle of the screen.
 	// the Sprite is added in Constructor of MyEntity.
-	myentityr = new MyEntity();
-	myentityr->position = Point2(W,H);
-	myentityg = new MyEntity();
-	myentityg->position = Point2(W,H*3);
-	myentityb = new MyEntity();
-	myentityb->position = Point2(W*3,H);
-	myentityy = new MyEntity();
-	myentityy->position = Point2(W*3,H*3);
+	buttonr = new MyEntity(RGBAColor(255,0,0,127));
+	buttonr->position = Point2(W - 128,H - 128);
+	buttong = new MyEntity(RGBAColor(0,255,0,127));
+	buttong->position = Point2(W- 128,H + 128);
+	buttonb = new MyEntity(RGBAColor(0,0,255,127));
+	buttonb->position = Point2(W + 128,H - 128);
+	buttony = new MyEntity(RGBAColor(255,255,0,127));
+	buttony->position = Point2(W + 128,H + 128);
 
-	myentityr->addSprite("assets/button.tga");
-	myentityr->sprite()->color = RGBAColor(255,0,0,127);
-	myentityg->addSprite("assets/button.tga");
-	myentityg->sprite()->color = RGBAColor(0,255,0,127);
-	myentityg->rotation.z = -HALF_PI;
-	myentityb->addSprite("assets/button.tga");
-	myentityb->sprite()->color = RGBAColor(0,0,255,127);
-	myentityb->rotation.z = HALF_PI;
-	myentityy->addSprite("assets/button.tga");
-	myentityy->sprite()->color = RGBAColor(255,255,0,127);
-	myentityy->rotation.z = PI;
+	buttons.push_back(buttonr);
+	buttons.push_back(buttong);
+	buttons.push_back(buttonb);
+	buttons.push_back(buttony);
 
+	buttong->rotation.z = -HALF_PI;
+	buttonb->rotation.z = HALF_PI;
+	buttony->rotation.z = PI;
 	// create the scene 'tree'
 	// add myentity to this Scene as a child.
-	this->addChild(myentityr);
-	this->addChild(myentityg);
-	this->addChild(myentityb);
-	this->addChild(myentityy);
+	this->addChild(buttonr);
+	this->addChild(buttong);
+	this->addChild(buttonb);
+	this->addChild(buttony);
+	seq = new Sequence(buttons);
+	play();
 }
 
 
 MyScene::~MyScene()
 {
 	// deconstruct and delete the Tree
-	this->removeChild(myentityr);
-	this->removeChild(myentityg);
-	this->removeChild(myentityb);
-	this->removeChild(myentityy);
+	this->removeChild(buttonr);
+	this->removeChild(buttong);
+	this->removeChild(buttonb);
+	this->removeChild(buttony);
 
 	// delete myentity from the heap (there was a 'new' in the constructor)
-	delete myentityr;
-	delete myentityg;
-	delete myentityb;
-	delete myentityy;
+	delete buttonr;
+	delete buttong;
+	delete buttonb;
+	delete buttony;
 }
-
+void MyScene::play() {
+  if (startSeq == true) {
+    seq->randomSequence();
+		t.start();
+  }
+}
+void MyScene::clearAllButtons() {
+	buttonr->clear();
+	buttong->clear();
+	buttonb->clear();
+	buttony->clear();
+}
 void MyScene::update(float deltaTime)
 {
 	// ###############################################################
@@ -71,7 +78,55 @@ void MyScene::update(float deltaTime)
 	if (input()->getKeyUp(KeyCode::Escape)) {
 		this->stop();
 	}
+	if (t.seconds() > 0.7f) {
+		if (startSeq == true) {
+			play();
+			startSeq = false;
+		}
+		if (buttonr->sprite()->color == RGBAColor(255,0,0,255)) {
+			buttonr->sprite()->color = RGBAColor(255,0,0,127);
+		}
+		if (buttong->sprite()->color == RGBAColor(0,255,0,255)) {
+			buttong->sprite()->color = RGBAColor(0,255,0,127);
+		}
+		if (buttonb->sprite()->color == RGBAColor(0,0,255,255)) {
+			buttonb->sprite()->color = RGBAColor(0,0,255,127);
+		}
+		if (buttony->sprite()->color == RGBAColor(255,255,0,255)) {
+			buttony->sprite()->color = RGBAColor(255,255,0,127);
+		}
+	}
+	if(startSeq == false) {
+		if(input()->getKeyDown(81)) {
+			// start the timer.
+			t.start();
+			std::cout << "pressed q" << '\n';
+			clearAllButtons();
+			buttonr->press();
 
+		}
+		if(input()->getKeyDown(65)) {
+			// start the timer.
+			t.start();
+			std::cout << "pressed a" << '\n';
+			clearAllButtons();
+			buttong->press();
+		}
+		if(input()->getKeyDown(87)) {
+			// start the timer.
+			t.start();
+			std::cout << "pressed w" << '\n';
+			clearAllButtons();
+			buttonb->press();
+		}
+		if(input()->getKeyDown(83)) {
+			// start the timer.
+			t.start();
+			std::cout << "pressed s" << '\n';
+			clearAllButtons();
+			buttony->press();
+		}
+	}
 	// ###############################################################
 	// Spacebar scales myentity
 	// ###############################################################

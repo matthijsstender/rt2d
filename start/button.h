@@ -16,7 +16,7 @@ class MyEntity : public Entity
 {
 public:
 	/// @brief Constructor
-	MyEntity();
+	MyEntity(RGBAColor c);
 	/// @brief Destructor
 	virtual ~MyEntity();
 
@@ -25,8 +25,14 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 
+	void press();
+	void clear();
+	RGBAColor getColor();
+
 private:
 	/* add your private declarations */
+
+	RGBAColor color;
 };
 
 #endif /* MYENTITY_H */
