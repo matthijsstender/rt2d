@@ -1,24 +1,24 @@
 /**
  * Copyright 2015 Your Name <you@yourhost.com>
  *
- * @file myentity.h
+ * @file Button.h
  *
- * @brief description of MyEntity behavior.
+ * @brief description of Button behavior.
  */
 
-#ifndef MYENTITY_H
-#define MYENTITY_H
+#ifndef Button_H
+#define Button_H
 
 #include <rt2d/entity.h>
 
-/// @brief The MyEntity class is the Entity implementation.
-class MyEntity : public Entity
+/// @brief The Button class is the Entity implementation.
+class Button : public Entity
 {
 public:
 	/// @brief Constructor
-	MyEntity(RGBAColor c);
+	Button(RGBAColor c, int _id);
 	/// @brief Destructor
-	virtual ~MyEntity();
+	virtual ~Button();
 
 	/// @brief update is automatically called every frame
 	/// @param deltaTime the elapsed time in seconds
@@ -28,6 +28,7 @@ public:
 	void press();
 	void clear();
 	RGBAColor getColor();
+	int id;
 
 private:
 	/* add your private declarations */
@@ -35,4 +36,4 @@ private:
 	RGBAColor color;
 };
 
-#endif /* MYENTITY_H */
+#endif /* Button_H */

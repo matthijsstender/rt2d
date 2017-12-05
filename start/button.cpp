@@ -1,25 +1,27 @@
 /**
- * This class describes MyEntity behavior.
+ * This class describes Button behavior.
  *
  * Copyright 2015 Your Name <you@yourhost.com>
  */
 
 #include "button.h"
 
-MyEntity::MyEntity(RGBAColor c) : Entity()
+Button::Button(RGBAColor c, int _id) : Entity()
 {
 	color = c;
-
+	id = _id;
+	std::cout << "id param: " << id << '\n';
+	std::cout << "id value: " << this->id << '\n';
 	this->addSprite("assets/button.tga");
 	this->sprite()->color = color;
 }
 
-MyEntity::~MyEntity()
+Button::~Button()
 {
 
 }
 
-void MyEntity::update(float deltaTime)
+void Button::update(float deltaTime)
 {
 
 	/*if(input()->getKey(262)){
@@ -48,22 +50,18 @@ void MyEntity::update(float deltaTime)
 	}*/
 }
 
-void MyEntity::press(){
-
+void Button::press(){
 	RGBAColor c = color;
 	c.a = 255;
-
 	this->sprite()->color = c;
 }
 
-RGBAColor MyEntity::getColor()
-{
+RGBAColor Button::getColor(){
 	return this->color;
 }
 
-void MyEntity::clear() {
+void Button::clear() {
 	RGBAColor c = color;
 	c.a = 127;
-
 	this->sprite()->color = c;
 }

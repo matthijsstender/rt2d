@@ -11,18 +11,22 @@ MyScene::MyScene() : Scene()
 {
 	float W = SWIDTH/2;
 	float H = SHEIGHT/2;
-	std::vector<MyEntity*> buttons = std::vector<MyEntity*>();
+	std::vector<Button*> buttons = std::vector<Button*>();
 	startSeq = true;
 
-	// create a single instance of MyEntity in the middle of the screen.
-	// the Sprite is added in Constructor of MyEntity.
-	buttonr = new MyEntity(RGBAColor(255,0,0,127));
+	// create a single instance of Button in the middle of the screen.
+	// the Sprite is added in Constructor of Button.
+	buttonr = new Button(RGBAColor(255,0,0,127), 0);
+	std::cout << "buttonr id: " << buttonr->id << '\n';
 	buttonr->position = Point2(W - 128,H - 128);
-	buttong = new MyEntity(RGBAColor(0,255,0,127));
-	buttong->position = Point2(W- 128,H + 128);
-	buttonb = new MyEntity(RGBAColor(0,0,255,127));
+	buttong = new Button(RGBAColor(0,255,0,127), 1);
+	std::cout << "buttonr id: " << buttong->id << '\n';
+	buttong->position = Point2(W - 128,H + 128);
+	buttonb = new Button(RGBAColor(0,0,255,127), 2);
+	std::cout << "buttonr id: " << buttonb->id << '\n';
 	buttonb->position = Point2(W + 128,H - 128);
-	buttony = new MyEntity(RGBAColor(255,255,0,127));
+	buttony = new Button(RGBAColor(255,255,0,127), 3);
+	std::cout << "buttonr id: " << buttony->id << '\n';
 	buttony->position = Point2(W + 128,H + 128);
 
 	buttons.push_back(buttonr);
@@ -34,7 +38,7 @@ MyScene::MyScene() : Scene()
 	buttonb->rotation.z = HALF_PI;
 	buttony->rotation.z = PI;
 	// create the scene 'tree'
-	// add myentity to this Scene as a child.
+	// add Button to this Scene as a child.
 	this->addChild(buttonr);
 	this->addChild(buttong);
 	this->addChild(buttonb);
@@ -52,7 +56,7 @@ MyScene::~MyScene()
 	this->removeChild(buttonb);
 	this->removeChild(buttony);
 
-	// delete myentity from the heap (there was a 'new' in the constructor)
+	// delete Button from the heap (there was a 'new' in the constructor)
 	delete buttonr;
 	delete buttong;
 	delete buttonb;
@@ -97,29 +101,28 @@ void MyScene::update(float deltaTime)
 		}
 	}
 	if(startSeq == false) {
-		if(input()->getKeyDown(81)) {
+		if(input()->getKeyDown(81) && seq->correctSequence(buttonr)) {
 			// start the timer.
 			t.start();
 			std::cout << "pressed q" << '\n';
 			clearAllButtons();
 			buttonr->press();
-
 		}
-		if(input()->getKeyDown(65)) {
+		if(input()->getKeyDown(65) && seq->correctSequence(buttong)) {
 			// start the timer.
 			t.start();
 			std::cout << "pressed a" << '\n';
 			clearAllButtons();
 			buttong->press();
 		}
-		if(input()->getKeyDown(87)) {
+		if(input()->getKeyDown(87) && seq->correctSequence(buttonb)) {
 			// start the timer.
 			t.start();
 			std::cout << "pressed w" << '\n';
 			clearAllButtons();
 			buttonb->press();
 		}
-		if(input()->getKeyDown(83)) {
+		if(input()->getKeyDown(83) && seq->correctSequence(buttony)) {
 			// start the timer.
 			t.start();
 			std::cout << "pressed s" << '\n';
@@ -128,12 +131,12 @@ void MyScene::update(float deltaTime)
 		}
 	}
 	// ###############################################################
-	// Spacebar scales myentity
+	// Spacebar scales Button
 	// ###############################################################
 	/*if (input()->getKeyDown(KeyCode::Space)) {
-		myentity->scale = Point(0.5f, 0.5f);
+		Button->scale = Point(0.5f, 0.5f);
 	}
 	if (input()->getKeyUp(KeyCode::Space)) {
-		myentity->scale = Point(1.0f, 1.0f);
+		Button->scale = Point(1.0f, 1.0f);
 	}*/
 }

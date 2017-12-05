@@ -34,10 +34,10 @@ public:
 	void play();
 
 private:
-	MyEntity* buttonr;
-	MyEntity* buttong;
-	MyEntity* buttonb;
-	MyEntity* buttony;
+	Button* buttonr;
+	Button* buttong;
+	Button* buttonb;
+	Button* buttony;
 	Timer t;
 	Sequence*seq;
 	bool startSeq;
