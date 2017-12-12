@@ -10,10 +10,8 @@ class Sequence{
 public:
 	Sequence();
 	virtual ~Sequence();
-
 	virtual void update(float deltaTime);
-
-  void randomSequence();
+  void nextElementInVector();
 	bool correctSequence(int id);
 	int index;
   std::vector<int> order;

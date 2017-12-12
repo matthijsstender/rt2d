@@ -22,7 +22,7 @@ bool Sequence::correctSequence(int id) {
   order.clear();
 	return false;
 }
-void Sequence::randomSequence() {
+void Sequence::nextElementInVector() {
   srand(time(0));
   int r = rand()%(4);
   order.push_back(r);
