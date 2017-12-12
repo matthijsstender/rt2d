@@ -31,8 +31,6 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 	void clearAllButtons();
-	void play();
-
 private:
 	Button* buttonr;
 	Button* buttong;

@@ -43,8 +43,7 @@ MyScene::MyScene() : Scene()
 	this->addChild(buttong);
 	this->addChild(buttonb);
 	this->addChild(buttony);
-	seq = new Sequence(buttons);
-	play();
+	seq = new Sequence();
 }
 
 
@@ -62,12 +61,6 @@ MyScene::~MyScene()
 	delete buttonb;
 	delete buttony;
 }
-void MyScene::play() {
-  if (startSeq == true) {
-    seq->randomSequence();
-		t.start();
-  }
-}
 void MyScene::clearAllButtons() {
 	buttonr->clear();
 	buttong->clear();
@@ -83,46 +76,36 @@ void MyScene::update(float deltaTime)
 		this->stop();
 	}
 	if (t.seconds() > 0.7f) {
-		if (startSeq == true) {
-			play();
-			startSeq = false;
-		}
 		if (buttonr->sprite()->color == RGBAColor(255,0,0,255)) {
 			buttonr->sprite()->color = RGBAColor(255,0,0,127);
-		}
-		if (buttong->sprite()->color == RGBAColor(0,255,0,255)) {
+		}else if (buttong->sprite()->color == RGBAColor(0,255,0,255)) {
 			buttong->sprite()->color = RGBAColor(0,255,0,127);
-		}
-		if (buttonb->sprite()->color == RGBAColor(0,0,255,255)) {
+		}else if (buttonb->sprite()->color == RGBAColor(0,0,255,255)) {
 			buttonb->sprite()->color = RGBAColor(0,0,255,127);
-		}
-		if (buttony->sprite()->color == RGBAColor(255,255,0,255)) {
+		}else if (buttony->sprite()->color == RGBAColor(255,255,0,255)) {
 			buttony->sprite()->color = RGBAColor(255,255,0,127);
 		}
 	}
 	if(startSeq == false) {
-		if(input()->getKeyDown(81) && seq->correctSequence(buttonr)) {
+		if(input()->getKeyDown(81) && seq->correctSequence(buttonr->id)) {
 			// start the timer.
 			t.start();
 			std::cout << "pressed q" << '\n';
 			clearAllButtons();
 			buttonr->press();
-		}
-		if(input()->getKeyDown(65) && seq->correctSequence(buttong)) {
+		}else if(input()->getKeyDown(65) && seq->correctSequence(buttong->id)) {
 			// start the timer.
 			t.start();
 			std::cout << "pressed a" << '\n';
 			clearAllButtons();
 			buttong->press();
-		}
-		if(input()->getKeyDown(87) && seq->correctSequence(buttonb)) {
+		}else if(input()->getKeyDown(87) && seq->correctSequence(buttonb->id)) {
 			// start the timer.
 			t.start();
 			std::cout << "pressed w" << '\n';
 			clearAllButtons();
 			buttonb->press();
-		}
-		if(input()->getKeyDown(83) && seq->correctSequence(buttony)) {
+		}else if(input()->getKeyDown(83) && seq->correctSequence(buttony->id)) {
 			// start the timer.
 			t.start();
 			std::cout << "pressed s" << '\n';

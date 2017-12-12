@@ -4,23 +4,19 @@
 #include <iostream>
 #include <vector>
 #include <time.h>
-#include "button.h"
 #include "rt2d/color.h"
 
 class Sequence{
 public:
-	Sequence(std::vector<Button*> b);
+	Sequence();
 	virtual ~Sequence();
 
 	virtual void update(float deltaTime);
 
   void randomSequence();
-  void play();
-	bool correctSequence(Button* bt);
+	bool correctSequence(int id);
 	int index;
   std::vector<int> order;
-	std::vector<Button*> buttons;
-  Button* b;
 private:
 
 };

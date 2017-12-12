@@ -1,8 +1,6 @@
 #include "sequence.h"
 
-Sequence::Sequence(std::vector<Button*> b) {
-  std::cout << "hello world" << '\n';
-  buttons = b;
+Sequence::Sequence() {
   index = 0;
 }
 Sequence::~Sequence() {
@@ -12,22 +10,20 @@ void Sequence::update(float deltaTime) {
 
 }
 
-bool Sequence::correctSequence(Button* bt) {
+bool Sequence::correctSequence(int id) {
   std::cout << "index: " << index << '\n';
-  std::cout << "oder[index]: " << order[index] << '\n';
-  std::cout << "bt->id: " << bt->id << '\n';
-	if (order[index] == bt->id) {
+  std::cout << "order[index]: " << order[index] << '\n';
+  std::cout << "bt->id: " << id << '\n';
+	if (order[index] == id) {
     index++;
 		return true;
 	}
   index = 0;
+  order.clear();
 	return false;
 }
-
 void Sequence::randomSequence() {
   srand(time(0));
-  int r = rand()%(buttons.size());
-  b = buttons[r];
+  int r = rand()%(4);
   order.push_back(r);
-  b->press();
 }
