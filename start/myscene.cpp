@@ -20,13 +20,13 @@ MyScene::MyScene() : Scene()
 	std::cout << "buttonr id: " << buttonr->id << '\n';
 	buttonr->position = Point2(W - 128,H - 128);
 	buttong = new Button(RGBAColor(0,255,0,127), 1);
-	std::cout << "buttonr id: " << buttong->id << '\n';
+	std::cout << "buttong id: " << buttong->id << '\n';
 	buttong->position = Point2(W - 128,H + 128);
 	buttonb = new Button(RGBAColor(0,0,255,127), 2);
-	std::cout << "buttonr id: " << buttonb->id << '\n';
+	std::cout << "buttonb id: " << buttonb->id << '\n';
 	buttonb->position = Point2(W + 128,H - 128);
 	buttony = new Button(RGBAColor(255,255,0,127), 3);
-	std::cout << "buttonr id: " << buttony->id << '\n';
+	std::cout << "buttony id: " << buttony->id << '\n';
 	buttony->position = Point2(W + 128,H + 128);
 
 	buttons.push_back(buttonr);
