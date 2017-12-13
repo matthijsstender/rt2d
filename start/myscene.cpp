@@ -86,7 +86,7 @@ void MyScene::update(float deltaTime)
 			buttony->sprite()->color = RGBAColor(255,255,0,127);
 		}
 	}
-	if(startSeq == false) {
+	//if(startSeq == false) {
 		if(input()->getKeyDown(81) && seq->correctSequence(buttonr->id)) {
 			// start the timer.
 			t.start();
@@ -112,7 +112,7 @@ void MyScene::update(float deltaTime)
 			clearAllButtons();
 			buttony->press();
 		}
-	}
+	//}
 	// ###############################################################
 	// Spacebar scales Button
 	// ###############################################################

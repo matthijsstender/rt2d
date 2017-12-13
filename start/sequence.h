@@ -3,7 +3,6 @@
 #define SEQUENCE_H
 #include <iostream>
 #include <vector>
-#include <time.h>
 #include "rt2d/color.h"
 
 class Sequence{
@@ -13,6 +12,7 @@ public:
 	virtual void update(float deltaTime);
   void nextElementInVector();
 	bool correctSequence(int id);
+	int getElementAtIndex(int _index);
 	int index;
   std::vector<int> order;
 private:

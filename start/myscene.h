@@ -37,7 +37,7 @@ private:
 	Button* buttonb;
 	Button* buttony;
 	Timer t;
-	Sequence*seq;
+	Sequence* seq;
 	bool startSeq;
 };
 
