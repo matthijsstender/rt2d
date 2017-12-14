@@ -29,10 +29,10 @@ MyScene::MyScene() : Scene()
 	std::cout << "buttony id: " << buttony->id << '\n';
 	buttony->position = Point2(W + 128,H + 128);
 
-	buttons.push_back(buttonr);
-	buttons.push_back(buttong);
-	buttons.push_back(buttonb);
-	buttons.push_back(buttony);
+	allButtons.push_back(buttonr);
+	allButtons.push_back(buttong);
+	allButtons.push_back(buttonb);
+	allButtons.push_back(buttony);
 
 	buttong->rotation.z = -HALF_PI;
 	buttonb->rotation.z = HALF_PI;
@@ -44,6 +44,9 @@ MyScene::MyScene() : Scene()
 	this->addChild(buttonb);
 	this->addChild(buttony);
 	seq = new Sequence();
+	play();
+
+
 }
 
 
@@ -67,6 +70,12 @@ void MyScene::clearAllButtons() {
 	buttonb->clear();
 	buttony->clear();
 }
+void MyScene::play() {
+	seq->nextElementInVector();
+	startSeq = true;
+	currentSeq = 0;
+	t.start();
+}
 void MyScene::update(float deltaTime)
 {
 	// ###############################################################
@@ -75,6 +84,19 @@ void MyScene::update(float deltaTime)
 	if (input()->getKeyUp(KeyCode::Escape)) {
 		this->stop();
 	}
+
+	if(startSeq && t.seconds() > 1.2f){
+
+		t.start();
+
+		allButtons[seq->order[currentSeq]]->press();
+
+		currentSeq++;
+		if(currentSeq >= seq->order.size()){
+			startSeq = false;
+		}
+	}
+
 	if (t.seconds() > 0.7f) {
 		if (buttonr->sprite()->color == RGBAColor(255,0,0,255)) {
 			buttonr->sprite()->color = RGBAColor(255,0,0,127);
@@ -86,33 +108,36 @@ void MyScene::update(float deltaTime)
 			buttony->sprite()->color = RGBAColor(255,255,0,127);
 		}
 	}
-	//if(startSeq == false) {
+
+	if(!startSeq) {
 		if(input()->getKeyDown(81) && seq->correctSequence(buttonr->id)) {
 			// start the timer.
 			t.start();
-			std::cout << "pressed q" << '\n';
 			clearAllButtons();
 			buttonr->press();
 		}else if(input()->getKeyDown(65) && seq->correctSequence(buttong->id)) {
 			// start the timer.
 			t.start();
-			std::cout << "pressed a" << '\n';
 			clearAllButtons();
 			buttong->press();
 		}else if(input()->getKeyDown(87) && seq->correctSequence(buttonb->id)) {
 			// start the timer.
 			t.start();
-			std::cout << "pressed w" << '\n';
 			clearAllButtons();
 			buttonb->press();
 		}else if(input()->getKeyDown(83) && seq->correctSequence(buttony->id)) {
 			// start the timer.
 			t.start();
-			std::cout << "pressed s" << '\n';
 			clearAllButtons();
 			buttony->press();
 		}
-	//}
+	}
+
+	if(seq->isDone()){
+		std::cout << "correctemundo" << '\n';
+		this->play();
+	}
+
 	// ###############################################################
 	// Spacebar scales Button
 	// ###############################################################

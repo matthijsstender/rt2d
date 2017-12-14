@@ -13,6 +13,9 @@ public:
   void nextElementInVector();
 	bool correctSequence(int id);
 	int getElementAtIndex(int _index);
+
+	bool isDone();
+
 	int index;
   std::vector<int> order;
 private:

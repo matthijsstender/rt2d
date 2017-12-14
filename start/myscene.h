@@ -31,14 +31,18 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 	void clearAllButtons();
+	void play();
 private:
 	Button* buttonr;
 	Button* buttong;
 	Button* buttonb;
 	Button* buttony;
+	std::vector<Button*> allButtons;
+
 	Timer t;
 	Sequence* seq;
 	bool startSeq;
+	int currentSeq;
 };
 
 #endif /* SCENE00_H */
