@@ -6,10 +6,10 @@
 
 #include "button.h"
 
-Button::Button(RGBAColor c, int id) : Entity()
+Button::Button(RGBAColor c, int _id) : Entity()
 {
 	color = c;
-	int _id = id;
+	id = _id;
 	std::cout << "id param: " << id << '\n';
 	std::cout << "id value: " << this->id << '\n';
 	this->addSprite("assets/button.tga");

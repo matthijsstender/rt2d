@@ -16,8 +16,8 @@ OPTION(MAKE_WOLFENSTEIN "Make Wolfenstein3D raycasting application" ON)
 OPTION(USE_RS232 "Use RS232 library" OFF)
 OPTION(MAKE_SERIAL "Make serial application" OFF)
 
-OPTION(USE_OPENAL "Use OpenAL library" OFF)
-OPTION(MAKE_AUDIOSTART "Make OpenAL/RT2D audiostart" OFF)
+OPTION(USE_OPENAL "Use OpenAL library" ON)
+OPTION(MAKE_AUDIOSTART "Make OpenAL/RT2D audiostart" ON)
 OPTION(MAKE_OPENAL_TONEGEN "Make OpenAL Tone Generator" OFF)
 
 OPTION(USE_BOX2D "Use Box2D" OFF)

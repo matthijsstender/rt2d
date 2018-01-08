@@ -22,6 +22,7 @@ bool Sequence::correctSequence(int id) {
 	}
   std::cout << "wrong retry" << '\n';
   index = 0;
+  order.clear();
 	return false;
 }
 
