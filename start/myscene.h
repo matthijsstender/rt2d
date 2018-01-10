@@ -14,6 +14,9 @@
 #include <sstream>
 #include <vector>
 
+#include "../projects/audiostart/audio/audio.h"
+#include "../projects/audiostart/audio/sound.h"
+
 #include "button.h"
 #include "sequence.h"
 
