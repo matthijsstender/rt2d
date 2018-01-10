@@ -4,6 +4,10 @@ project (rt2d)
 
 # delete CMakeCache.txt from the build directory when you edit these options
 ####################################################################
+OPTION(USE_OPENAL "Use OpenAL library" ON)
+OPTION(MAKE_AUDIOSTART "Make OpenAL/RT2D audiostart" ON)
+OPTION(MAKE_OPENAL_TONEGEN "Make OpenAL Tone Generator" OFF)
+
 OPTION(MAKE_START "Make RT2D start application" ON)
 OPTION(MAKE_DEMO "Make RT2D demo (tests) application" ON)
 OPTION(MAKE_FLOCKING "Make flocking application" ON)
@@ -16,9 +20,7 @@ OPTION(MAKE_WOLFENSTEIN "Make Wolfenstein3D raycasting application" ON)
 OPTION(USE_RS232 "Use RS232 library" OFF)
 OPTION(MAKE_SERIAL "Make serial application" OFF)
 
-OPTION(USE_OPENAL "Use OpenAL library" ON)
-OPTION(MAKE_AUDIOSTART "Make OpenAL/RT2D audiostart" ON)
-OPTION(MAKE_OPENAL_TONEGEN "Make OpenAL Tone Generator" OFF)
+
 
 OPTION(USE_BOX2D "Use Box2D" OFF)
 OPTION(MAKE_BOX2DSTART "Make Box2D/RT2D box2dstart" OFF)
