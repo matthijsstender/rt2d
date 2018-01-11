@@ -44,7 +44,7 @@ MyScene::MyScene() : Scene()
 	this->addChild(buttonb);
 	this->addChild(buttony);
 	seq = new Sequence();
-	play();
+	playGame();
 
 
 }
@@ -70,7 +70,7 @@ void MyScene::clearAllButtons() {
 	buttonb->clear();
 	buttony->clear();
 }
-void MyScene::play() {
+void MyScene::playGame() {
 	seq->nextElementInVector();
 	startSeq = true;
 	currentSeq = 0;
@@ -135,7 +135,7 @@ void MyScene::update(float deltaTime)
 
 	if(seq->isDone()){
 		std::cout << "correctemundo" << '\n';
-		this->play();
+		this->playGame();
 	}
 
 	// ###############################################################

@@ -11,6 +11,9 @@
 
 #include <rt2d/entity.h>
 
+#include "audio/audio.h"
+#include "audio/sound.h"
+
 /// @brief The Button class is the Entity implementation.
 class Button : public Entity
 {
@@ -27,8 +30,14 @@ public:
 
 	void press();
 	void clear();
+	void stopSounds();
 	RGBAColor getColor();
 	int id;
+
+	Sound* rs;
+	Sound* gs;
+	Sound* bs;
+	Sound* ys;
 
 private:
 	/* add your private declarations */

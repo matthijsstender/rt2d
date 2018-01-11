@@ -8,12 +8,18 @@
 
 Button::Button(RGBAColor c, int _id) : Entity()
 {
+	Audio::init();
 	color = c;
 	id = _id;
 	std::cout << "id param: " << id << '\n';
 	std::cout << "id value: " << this->id << '\n';
 	this->addSprite("assets/button.tga");
 	this->sprite()->color = color;
+
+	rs = new Sound("assets/bleep_1.wav");
+	gs = new Sound("assets/bleep_2.wav");
+	bs = new Sound("assets/bleep_3.wav");
+	ys = new Sound("assets/bleep_4.wav");
 }
 
 Button::~Button()
@@ -53,7 +59,24 @@ void Button::update(float deltaTime)
 void Button::press(){
 	RGBAColor c = color;
 	c.a = 255;
+	stopSounds();
 	this->sprite()->color = c;
+	if (this->id == 0) {
+		rs->play();
+	} else if (this->id == 1) {
+		gs->play();
+	}	else if (this->id == 2) {
+		bs->play();
+	} else if (this->id == 3) {
+		ys->play();
+	}
+}
+
+void Button::stopSounds(){
+	rs->stop();
+	gs->stop();
+	bs->stop();
+	ys->stop();
 }
 
 RGBAColor Button::getColor(){

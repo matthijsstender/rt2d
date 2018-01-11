@@ -14,9 +14,6 @@
 #include <sstream>
 #include <vector>
 
-#include "audio/audio.h"
-#include "audio/sound.h"
-
 #include "button.h"
 #include "sequence.h"
 
@@ -34,12 +31,13 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 	void clearAllButtons();
-	void play();
+	void playGame();
 private:
 	Button* buttonr;
 	Button* buttong;
 	Button* buttonb;
 	Button* buttony;
+
 	std::vector<Button*> allButtons;
 
 	Timer t;

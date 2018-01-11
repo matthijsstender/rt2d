@@ -153,29 +153,6 @@ file(
 )
 
 ####################################################################
-# start                                                            #
-####################################################################
-IF(MAKE_START)
-	add_executable(start
-		start/main.cpp
-		start/button.cpp
-		start/button.h
-		start/myscene.cpp
-		start/myscene.h
-    start/sequence.cpp
-    start/sequence.h
-	)
-	target_link_libraries(start
-		${ALL_GRAPHICS_LIBS}
-	)
-	# Copy assets to the build directory
-	file(
-		COPY start/assets
-		DESTINATION ${CMAKE_BINARY_DIR}
-	)
-ENDIF()
-
-####################################################################
 # demo                                                             #
 ####################################################################
 IF(MAKE_DEMO)
@@ -494,3 +471,33 @@ IF(MAKE_BOX2DSTART AND USE_BOX2D)
 ENDIF()
 
 ####################################################################
+
+####################################################################
+# start                                                            #
+####################################################################
+IF(MAKE_START)
+	add_executable(start
+		start/main.cpp
+		start/button.cpp
+		start/button.h
+		start/myscene.cpp
+		start/myscene.h
+    start/sequence.cpp
+    start/sequence.h
+    start/audio/audio.cpp
+		start/audio/audio.h
+		start/audio/sound.cpp
+		start/audio/sound.h
+		start/audio/wav.cpp
+		start/audio/wav.h
+	)
+	target_link_libraries(start
+		${ALL_GRAPHICS_LIBS}
+    ${OPENAL}
+	)
+	# Copy assets to the build directory
+	file(
+		COPY start/assets
+		DESTINATION ${CMAKE_BINARY_DIR}
+	)
+ENDIF()
