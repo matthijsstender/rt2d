@@ -29,6 +29,11 @@ MyScene::MyScene() : Scene()
 	std::cout << "buttony id: " << buttony->id << '\n';
 	buttony->position = Point2(W + 128,H + 128);
 
+	hsCounter = 0;
+	hs = new Text();
+	hs->scale = Point2(0.5f, 0.5f);
+	hs->position = Point2(W/5, H/5);
+
 	allButtons.push_back(buttonr);
 	allButtons.push_back(buttong);
 	allButtons.push_back(buttonb);
@@ -43,10 +48,9 @@ MyScene::MyScene() : Scene()
 	this->addChild(buttong);
 	this->addChild(buttonb);
 	this->addChild(buttony);
+	this->addChild(hs);
 	seq = new Sequence();
 	playGame();
-
-
 }
 
 
@@ -57,6 +61,7 @@ MyScene::~MyScene()
 	this->removeChild(buttong);
 	this->removeChild(buttonb);
 	this->removeChild(buttony);
+	this->removeChild(hs);
 
 	// delete Button from the heap (there was a 'new' in the constructor)
 	delete buttonr;
@@ -78,6 +83,7 @@ void MyScene::playGame() {
 }
 void MyScene::update(float deltaTime)
 {
+	hs->message("Highscore: " + std::to_string(hsCounter));
 	// ###############################################################
 	// Escape key stops the Scene
 	// ###############################################################
@@ -88,7 +94,6 @@ void MyScene::update(float deltaTime)
 	if(startSeq && t.seconds() > 1.2f){
 
 		t.start();
-
 		allButtons[seq->order[currentSeq]]->press();
 
 		currentSeq++;
@@ -135,6 +140,7 @@ void MyScene::update(float deltaTime)
 
 	if(seq->isDone()){
 		std::cout << "correctemundo" << '\n';
+		hsCounter++;
 		this->playGame();
 	}
 
