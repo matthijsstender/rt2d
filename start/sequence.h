@@ -17,6 +17,7 @@ public:
 	bool isDone();
 
 	int index;
+	int lives;
   std::vector<int> order;
 private:
 

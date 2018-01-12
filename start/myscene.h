@@ -43,6 +43,7 @@ private:
 
 	Timer t;
 	Text* hs;
+	Text* lives;
 	int hsCounter;
 	Sequence* seq;
 	bool startSeq;

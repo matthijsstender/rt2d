@@ -2,6 +2,7 @@
 
 Sequence::Sequence() {
   index = 0;
+  lives = 3;
   srand(time(0));
 }
 Sequence::~Sequence() {
@@ -19,11 +20,18 @@ bool Sequence::correctSequence(int id) {
     std::cout << "right" << '\n';
     index++;
 		return true;
-	}
-  std::cout << "wrong retry" << '\n';
-  index = 0;
-  order.clear();
-	return false;
+	} else if (order[index] != id && lives >= 1) {
+    lives--;
+    std::cout << "wrong retry same sequence" << '\n';
+    index = 0;
+  	return false;
+  }else{
+    std::cout << "wrong try a different sequence" << '\n';
+    index = 0;
+    order.clear();
+    lives = 3;
+    return false;
+  }
 }
 
 bool Sequence::isDone(){

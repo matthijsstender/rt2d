@@ -30,9 +30,12 @@ MyScene::MyScene() : Scene()
 	buttony->position = Point2(W + 128,H + 128);
 
 	hsCounter = 0;
+	lives = new Text();
+	lives->scale = Point2(0.5f, 0.5f);
+	lives->position = Point2(W*1.5, H/4);
 	hs = new Text();
 	hs->scale = Point2(0.5f, 0.5f);
-	hs->position = Point2(W/5, H/5);
+	hs->position = Point2(W/4, H/4);
 
 	allButtons.push_back(buttonr);
 	allButtons.push_back(buttong);
@@ -49,6 +52,7 @@ MyScene::MyScene() : Scene()
 	this->addChild(buttonb);
 	this->addChild(buttony);
 	this->addChild(hs);
+	this->addChild(lives);
 	seq = new Sequence();
 	playGame();
 }
@@ -84,6 +88,7 @@ void MyScene::playGame() {
 void MyScene::update(float deltaTime)
 {
 	hs->message("Highscore: " + std::to_string(hsCounter));
+	lives->message("Lives: " + std::to_string(seq->lives));
 	// ###############################################################
 	// Escape key stops the Scene
 	// ###############################################################
@@ -92,10 +97,8 @@ void MyScene::update(float deltaTime)
 	}
 
 	if(startSeq && t.seconds() > 1.2f){
-
 		t.start();
 		allButtons[seq->order[currentSeq]]->press();
-
 		currentSeq++;
 		if(currentSeq >= seq->order.size()){
 			startSeq = false;
@@ -144,10 +147,10 @@ void MyScene::update(float deltaTime)
 			hsCounter = 0;
 			this->playGame();
 		} else {
-		std::cout << "correctemundo" << '\n';
-		hsCounter++;
-		this->playGame();
-	}
+			std::cout << "correctemundo" << '\n';
+			hsCounter++;
+			this->playGame();
+		}
 	}
 
 	// ###############################################################
