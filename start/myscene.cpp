@@ -139,9 +139,15 @@ void MyScene::update(float deltaTime)
 	}
 
 	if(seq->isDone()){
+		if (seq->order.size() == 0) {
+			std::cout << "wrongerino" << '\n';
+			hsCounter = 0;
+			this->playGame();
+		} else {
 		std::cout << "correctemundo" << '\n';
 		hsCounter++;
 		this->playGame();
+	}
 	}
 
 	// ###############################################################
