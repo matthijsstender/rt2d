@@ -66,12 +66,15 @@ MyScene::~MyScene()
 	this->removeChild(buttonb);
 	this->removeChild(buttony);
 	this->removeChild(hs);
+	this->removeChild(lives);
 
 	// delete Button from the heap (there was a 'new' in the constructor)
 	delete buttonr;
 	delete buttong;
 	delete buttonb;
 	delete buttony;
+	delete hs;
+	delete lives;
 }
 void MyScene::clearAllButtons() {
 	buttonr->clear();
