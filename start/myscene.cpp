@@ -9,10 +9,11 @@
 
 MyScene::MyScene() : Scene()
 {
-	float W = SWIDTH/2;
-	float H = SHEIGHT/2;
+	W = SWIDTH/2;
+	H = SHEIGHT/2;
 	std::vector<Button*> buttons = std::vector<Button*>();
 	startSeq = true;
+	pause = false;
 
 	// create a single instance of Button in the middle of the screen.
 	// the Sprite is added in Constructor of Button.
@@ -36,6 +37,8 @@ MyScene::MyScene() : Scene()
 	hs = new Text();
 	hs->scale = Point2(0.5f, 0.5f);
 	hs->position = Point2(W/4, H/4);
+
+	this->whichButton = 0;
 
 	allButtons.push_back(buttonr);
 	allButtons.push_back(buttong);
@@ -81,6 +84,7 @@ void MyScene::clearAllButtons() {
 	buttong->clear();
 	buttonb->clear();
 	buttony->clear();
+	whichButton = 0;
 }
 void MyScene::playGame() {
 	seq->nextElementInVector();
@@ -88,8 +92,30 @@ void MyScene::playGame() {
 	currentSeq = 0;
 	t.start();
 }
+void MyScene::checkButtonMouse() {
+	if (input()->getMouseDown(0) && !pause) {
+		std::cout << "H: " << H << "W: " << W << '\n';
+		//if(input()->getMouseX() < (W,H + 256) && input()->getMouseY() < (W,H + 256)) {
+			if(input()->getMouseX() < W && input()->getMouseY() < H) {
+				std::cout << "linksboven" << '\n';
+				this->whichButton = 1;
+			}else if(input()->getMouseX() < W && input()->getMouseY() > H) {
+				std::cout << "linksonder" << '\n';
+				this->whichButton = 2;
+			}else if(input()->getMouseX() > W && input()->getMouseY() < H) {
+				std::cout << "rechtsboven" << '\n';
+				this->whichButton = 3;
+			}else if(input()->getMouseX() > W && input()->getMouseY() > H) {
+				std::cout << "rechtsonder" << '\n';
+				this->whichButton = 4;
+			}
+		//}
+	}
+}
 void MyScene::update(float deltaTime)
 {
+	this->whichButton = 0;
+	checkButtonMouse();
 	hs->message("Highscore: " + std::to_string(hsCounter));
 	lives->message("Lives: " + std::to_string(seq->lives));
 	// ###############################################################
@@ -100,43 +126,55 @@ void MyScene::update(float deltaTime)
 	}
 
 	if(startSeq && t.seconds() > 1.2f){
-		t.start();
 		allButtons[seq->order[currentSeq]]->press();
 		currentSeq++;
 		if(currentSeq >= seq->order.size()){
 			startSeq = false;
 		}
+		t.start();
 	}
 
 	if (t.seconds() > 0.7f) {
 		if (buttonr->sprite()->color == RGBAColor(255,0,0,255)) {
 			buttonr->sprite()->color = RGBAColor(255,0,0,127);
+			//whichButton = 0;
+			pause = false;
 		}else if (buttong->sprite()->color == RGBAColor(0,255,0,255)) {
 			buttong->sprite()->color = RGBAColor(0,255,0,127);
+			//whichButton = 0;
+			pause = false;
 		}else if (buttonb->sprite()->color == RGBAColor(0,0,255,255)) {
 			buttonb->sprite()->color = RGBAColor(0,0,255,127);
+			//whichButton = 0;
+			pause = false;
 		}else if (buttony->sprite()->color == RGBAColor(255,255,0,255)) {
 			buttony->sprite()->color = RGBAColor(255,255,0,127);
+			//whichButton = 0;
+			pause = false;
 		}
 	}
 
 	if(!startSeq) {
-		if(input()->getKeyDown(81) && seq->correctSequence(buttonr->id)) {
+		if((input()->getKeyDown(81) && seq->correctSequence(buttonr->id)) || (whichButton == 1 && seq->correctSequence(buttonr->id))) {
+			pause = true;
 			// start the timer.
 			t.start();
 			clearAllButtons();
 			buttonr->press();
-		}else if(input()->getKeyDown(65) && seq->correctSequence(buttong->id)) {
+		}else if((input()->getKeyDown(65) && seq->correctSequence(buttong->id)) || (whichButton == 2 && seq->correctSequence(buttong->id))) {
+			pause = true;
 			// start the timer.
 			t.start();
 			clearAllButtons();
 			buttong->press();
-		}else if(input()->getKeyDown(87) && seq->correctSequence(buttonb->id)) {
+		}else if((input()->getKeyDown(87) && seq->correctSequence(buttonb->id)) || (whichButton == 3 && seq->correctSequence(buttonb->id))) {
+			pause = true;
 			// start the timer.
 			t.start();
 			clearAllButtons();
 			buttonb->press();
-		}else if(input()->getKeyDown(83) && seq->correctSequence(buttony->id)) {
+		}else if((input()->getKeyDown(83) && seq->correctSequence(buttony->id)) || (whichButton == 4 && seq->correctSequence(buttony->id))) {
+			pause = true;
 			// start the timer.
 			t.start();
 			clearAllButtons();

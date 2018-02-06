@@ -33,21 +33,31 @@ public:
 	virtual void update(float deltaTime);
 	void clearAllButtons();
 	void playGame();
+	void checkButtonMouse();
 private:
 	Button* buttonr;
 	Button* buttong;
 	Button* buttonb;
 	Button* buttony;
 
+	Text* hs;
+	Text* lives;
+
+	Sequence* seq;
+
 	std::vector<Button*> allButtons;
 
 	Timer t;
-	Text* hs;
-	Text* lives;
-	int hsCounter;
-	Sequence* seq;
+
 	bool startSeq;
+	bool pause;
+
+	int W;
+	int H;
+
 	int currentSeq;
+	int hsCounter;
+	int whichButton;
 };
 
 #endif /* SCENE00_H */
