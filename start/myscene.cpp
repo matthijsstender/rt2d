@@ -137,19 +137,19 @@ void MyScene::update(float deltaTime)
 	if (t.seconds() > 0.7f) {
 		if (buttonr->sprite()->color == RGBAColor(255,0,0,255)) {
 			buttonr->sprite()->color = RGBAColor(255,0,0,127);
-			//whichButton = 0;
+			whichButton = 0;
 			pause = false;
 		}else if (buttong->sprite()->color == RGBAColor(0,255,0,255)) {
 			buttong->sprite()->color = RGBAColor(0,255,0,127);
-			//whichButton = 0;
+			whichButton = 0;
 			pause = false;
 		}else if (buttonb->sprite()->color == RGBAColor(0,0,255,255)) {
 			buttonb->sprite()->color = RGBAColor(0,0,255,127);
-			//whichButton = 0;
+			whichButton = 0;
 			pause = false;
 		}else if (buttony->sprite()->color == RGBAColor(255,255,0,255)) {
 			buttony->sprite()->color = RGBAColor(255,255,0,127);
-			//whichButton = 0;
+			whichButton = 0;
 			pause = false;
 		}
 	}
